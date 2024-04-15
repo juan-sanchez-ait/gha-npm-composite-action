@@ -1,0 +1,20 @@
+name: Custom composite action
+description: 'Build npm'
+inputs:
+  node-version:
+    required: true
+    type: number
+    default: 18
+    description: "The node version that we want to use"
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+    - name: Setup node environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.version-node }}
+    - run: npm ci
+      shell: bash
+    - run: npm test
+      shell: bash
